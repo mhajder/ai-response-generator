@@ -1,12 +1,13 @@
 <?php
+
 return array(
-    'id' =>             'ai-response-generator:osticket',
-    'version' =>        '0.1.1',
-    'name' =>           'AI Response Generator',
-    'description' =>    'Adds an AI-powered "Generate Response" button to the agent ticket view with configurable API settings and RAG.',
-    'author' =>         'Mateusz Hajder',
-    'ost_version' =>    MAJOR_VERSION,
-    'plugin' =>         'src/AIResponsePlugin.php:AIResponseGeneratorPlugin',
-    'include_path' =>   '',
-    'url' =>            'https://github.com/mhajder/ai-response-generator',
+    'id' =>           'ai-response-generator:osticket',
+    'version' =>      '0.1.1', // x-release-please-version
+    'name' =>         'AI Response Generator',
+    'description' =>  'Adds AI-powered reply generation, ticket summarization, and draft rewriting to the osTicket agent panel.',
+    'author' =>       'Mateusz Hajder',
+    'ost_version' =>  '1.17',
+    'plugin' =>       'src/AIResponsePlugin.php:AIResponseGeneratorPlugin',
+    'include_path' => '',
+    'url' =>          'https://github.com/mhajder/ai-response-generator',
 );
