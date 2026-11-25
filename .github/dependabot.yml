@@ -1,0 +1,61 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    schedule:
+      interval: 'daily'
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+  - package-ecosystem: 'composer'
+    directory: '/'
+    commit-message:
+      prefix: 'build'
+      prefix-development: 'chore'
+      include: 'scope'
+    schedule:
+      interval: 'daily'
+    cooldown:
+      default-days: 7
+    groups:
+      composer-dependencies:
+        dependency-type: 'production'
+      composer-dev-dependencies:
+        dependency-type: 'development'
+
+  - package-ecosystem: 'npm'
+    directory: '/'
+    commit-message:
+      prefix: 'build'
+      prefix-development: 'chore'
+      include: 'scope'
+    schedule:
+      interval: 'daily'
+    cooldown:
+      default-days: 7
+    groups:
+      npm-dependencies:
+        dependency-type: 'production'
+      npm-dev-dependencies:
+        dependency-type: 'development'
+
+  - package-ecosystem: 'pre-commit'
+    directory: '/'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    schedule:
+      interval: 'daily'
+    cooldown:
+      default-days: 7
+    groups:
+      pre-commit:
+        patterns:
+          - '*'

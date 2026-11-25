@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, json, mbstring, phar, zip
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Lint PHP syntax
+        run: composer lint
+
+      - name: Check code style
+        run: composer cs-check
+
+      - name: Run PHPStan
+        run: composer stan
+
+      - name: Run PHPUnit
+        run: composer test
+
+      - name: Test package build
+        run: |
+          php -dphar.readonly=0 scripts/build-package.php
+          ls -lh dist/
+          php <<'PHP'
+          <?php
+          $pharPath = realpath('dist/ai-response-generator.phar');
+          $phar = new Phar($pharPath);
+          foreach (['plugin.php', 'src/AIResponsePlugin.php', 'src/AIAjax.php', 'src/Config.php', 'api/OpenAIClient.php', 'assets/js/main.js'] as $file) {
+              if (!isset($phar[$file])) {
+                  fwrite(STDERR, "Missing packaged file: $file\n");
+                  exit(1);
+              }
+          }
+          $meta = include 'phar://' . $pharPath . '/plugin.php';
+          if (!is_array($meta) || empty($meta['version'])) {
+              fwrite(STDERR, "Invalid plugin.php manifest inside PHAR\n");
+              exit(1);
+          }
+          echo 'PHAR verified: ' . $meta['name'] . ' v' . $meta['version'] . "\n";
+          PHP
+
+  frontend:
+    name: JS & CSS Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          version: 12
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run JS unit tests
+        run: pnpm test
+
+      - name: Lint and check formatting
+        run: pnpm run check

@@ -1,0 +1,93 @@
+name: Bug report
+description: Something in ai-response-generator does not work as expected
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove API keys, passwords, and private ticket content from what you paste below.
+        For security issues, use [private vulnerability reporting](https://github.com/mhajder/ai-response-generator/security/advisories/new) instead.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include the action you triggered (Generate Reply, Summarize, Rewrite, Test API) and the error or unexpected result.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a ticket in the osTicket agent panel
+        2. Click '...'
+        3. See error '...'
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: e.g. 0.2.0
+    validations:
+      required: true
+  - type: input
+    id: osticket-version
+    attributes:
+      label: osTicket version
+      placeholder: e.g. 1.18.4
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      placeholder: e.g. 8.3
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installation method
+      options:
+        - PHAR archive (ai-response-generator.phar)
+        - ZIP archive (unpacked directory)
+        - Git clone (from source)
+    validations:
+      required: true
+  - type: dropdown
+    id: provider
+    attributes:
+      label: AI Provider
+      options:
+        - Auto-detect
+        - OpenAI Chat Completions / Compatible (OpenRouter, vLLM, LM Studio)
+        - OpenAI Responses API
+        - Anthropic Messages API
+        - Ollama Native Chat
+        - Azure OpenAI
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model name
+      placeholder: e.g. gpt-5-nano, gpt-4o-mini, claude-sonnet-4-5, llama3.3
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant configuration
+      description: Non-secret settings only (API URL without key, output format, rich text enabled/disabled). Never paste API keys.
+      render: text
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Browser Console / Network Response
+      description: Paste relevant PHP error log lines or AJAX HTTP status/JSON error (redact secrets and private customer data).
+      render: text

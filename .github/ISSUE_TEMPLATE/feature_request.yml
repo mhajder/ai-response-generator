@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest a new AI feature, provider, or improvement
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: What workflow or capability in osTicket are you trying to improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the expected agent/admin UX, configuration options, or provider behavior.
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: osTicket or AI API reference
+      description: Link to relevant osTicket hooks or AI provider API docs, if applicable.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
