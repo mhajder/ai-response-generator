@@ -1,0 +1,14 @@
+parameters:
+  level: 6
+  treatPhpDocTypesAsCertain: false
+  paths:
+    - api
+    - src
+    - scripts
+    - tests
+  scanFiles:
+    - tests/phpstan-stubs.php
+  ignoreErrors:
+    - identifier: missingType.iterableValue
+    - message: '~Path in require_once\(\) "/tmp/osticket/include/.*" is not a file or it does not exist~'
+    - message: '#Call to function method_exists\(\) with (Ticket|''FAQ''|''Format''|''Canned''|''DynamicFormEntry'') and .* will always evaluate to true#'

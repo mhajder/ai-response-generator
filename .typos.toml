@@ -1,0 +1,19 @@
+[files]
+extend-exclude = [
+    "dist/",
+    "vendor/",
+    "node_modules/",
+    "CHANGELOG.md",
+]
+
+[default.extend-words]
+osticket = "osticket"
+osTicket = "osTicket"
+phar = "phar"
+phars = "phars"
+redactor = "redactor"
+phpcbf = "phpcbf"
+phpcs = "phpcs"
+phpstan = "phpstan"
+phpunit = "phpunit"
+prek = "prek"

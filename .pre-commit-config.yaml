@@ -1,0 +1,108 @@
+fail_fast: false
+minimum_prek_version: '0.5.0'
+default_install_hook_types: [pre-push, commit-msg, pre-commit]
+default_stages: [pre-commit]
+exclude: |
+  (?x)^(
+    CHANGELOG\.md
+    | \.release-please-manifest\.json
+    | pnpm-lock\.yaml
+    | composer\.lock
+  )$
+
+repos:
+  - repo: meta
+    hooks:
+      - id: identity
+        name: Print checked files
+        description: Print input to the static check hooks for troubleshooting
+        stages: [manual]
+
+  - repo: builtin
+    hooks:
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-toml
+      - id: check-json
+      - id: check-xml
+      - id: end-of-file-fixer
+      - id: detect-private-key
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-illegal-windows-names
+      - id: forbid-new-submodules
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=100]
+
+  - repo: local
+    hooks:
+      - id: local-php-lint
+        name: php syntax check
+        entry: php -l
+        language: system
+        types: [php]
+
+      - id: local-phpcs
+        name: phpcs
+        entry: composer cs-check
+        language: system
+        types: [php]
+        pass_filenames: false
+
+      - id: local-phpstan
+        name: phpstan
+        entry: composer stan
+        language: system
+        types: [php]
+        pass_filenames: false
+
+      - id: local-phpunit
+        name: phpunit
+        entry: composer test
+        language: system
+        types: [php]
+        pass_filenames: false
+
+      - id: local-eslint
+        name: eslint
+        entry: pnpm eslint --fix
+        require_serial: true
+        language: system
+        files: ^(assets/js/.*\.js|tests/js/.*\.js|eslint\.config\.js)$
+        types: [javascript]
+
+      - id: local-node-test
+        name: node test
+        entry: pnpm test
+        require_serial: true
+        language: system
+        files: ^(assets/js|tests/js)/
+        types: [javascript]
+        pass_filenames: false
+
+      - id: local-prettier
+        name: prettier
+        entry: pnpm prettier --write --ignore-unknown
+        require_serial: true
+        language: system
+        types_or: [javascript, css, json, yaml, markdown]
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.52.2
+    hooks:
+      - id: typos
+        args: [--hidden, --no-ignore, --force-exclude]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.20.1
+    hooks:
+      - id: commitizen
+      - id: commitizen-branch
+        stages:
+          - pre-push

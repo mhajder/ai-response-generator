@@ -1,0 +1,20 @@
+{
+  "name": "ai-response-generator",
+  "version": "0.1.1",
+  "private": true,
+  "description": "AI Response Generator plugin for osTicket",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/js/*.test.js",
+    "format": "prettier --check assets/ tests/js/",
+    "format:fix": "prettier --write assets/ tests/js/",
+    "lint": "eslint assets/ tests/js/",
+    "lint:fix": "eslint --fix assets/ tests/js/",
+    "check": "eslint assets/ tests/js/ && prettier --check assets/ tests/js/"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1"
+  }
+}

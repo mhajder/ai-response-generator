@@ -1,0 +1,13 @@
+[tools."http:php"]
+version = "8.4.23"
+bin = "php"
+
+[tools."http:php".platforms]
+macos-x64 = { url = "https://dl.static-php.dev/static-php-cli/bulk/php-8.4.23-cli-macos-x86_64.tar.gz" }
+macos-arm64 = { url = "https://dl.static-php.dev/static-php-cli/bulk/php-8.4.23-cli-macos-aarch64.tar.gz" }
+linux-x64 = { url = "https://dl.static-php.dev/static-php-cli/bulk/php-8.4.23-cli-linux-x86_64.tar.gz" }
+linux-arm64 = { url = "https://dl.static-php.dev/static-php-cli/bulk/php-8.4.23-cli-linux-aarch64.tar.gz" }
+
+[tools."github:composer/composer"]
+version = "2"
+rename_exe = "composer"

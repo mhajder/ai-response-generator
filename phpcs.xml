@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="osTicket AI Response Generator">
+  <description>PSR-12 coding standard adapted for osTicket global-namespace plugins</description>
+
+  <file>plugin.php</file>
+  <file>api</file>
+  <file>src</file>
+  <file>scripts</file>
+  <file>tests</file>
+
+  <exclude-pattern>vendor/*</exclude-pattern>
+  <exclude-pattern>node_modules/*</exclude-pattern>
+  <exclude-pattern>dist/*</exclude-pattern>
+  <exclude-pattern>tests/phpstan-stubs.php</exclude-pattern>
+  <exclude-pattern>tests/js/*</exclude-pattern>
+
+  <rule ref="PSR12">
+    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+    <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
+    <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="140"/>
+      <property name="absoluteLineLimit" value="180"/>
+    </properties>
+  </rule>
+</ruleset>

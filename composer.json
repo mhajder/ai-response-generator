@@ -1,0 +1,21 @@
+{
+  "name": "mhajder/ai-response-generator",
+  "description": "AI Response Generator plugin for osTicket 1.17/1.18+",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^11.5",
+    "squizlabs/php_codesniffer": "^3.11"
+  },
+  "scripts": {
+    "lint": "php -l plugin.php && find api src scripts tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "stan": "phpstan analyse --no-progress",
+    "test": "phpunit --no-coverage"
+  }
+}

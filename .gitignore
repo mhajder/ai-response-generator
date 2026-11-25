@@ -1,0 +1,19 @@
+# Dependencies & build output
+vendor/
+node_modules/
+dist/
+
+# Tool caches & logs
+.phpunit.result.cache
+.phpstan.cache/
+.eslintcache
+.cache/
+*.log
+
+# OS & editor files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+.env
+.env.*
