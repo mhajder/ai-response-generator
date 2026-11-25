@@ -17,5 +17,10 @@
     "cs-fix": "phpcbf",
     "stan": "phpstan analyse --no-progress",
     "test": "phpunit --no-coverage"
+  },
+  "config": {
+    "platform": {
+      "php": "8.2.0"
+    }
   }
 }

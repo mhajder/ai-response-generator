@@ -29,6 +29,9 @@ updates:
         dependency-type: 'production'
       composer-dev-dependencies:
         dependency-type: 'development'
+    ignore:
+      - dependency-name: 'phpunit/phpunit'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'npm'
     directory: '/'
