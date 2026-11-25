@@ -2,7 +2,7 @@
 
 return array(
     'id' =>           'ai-response-generator:osticket',
-    'version' =>      '0.1.1', // x-release-please-version
+    'version' =>      '1.0.0', // x-release-please-version
     'name' =>         'AI Response Generator',
     'description' =>  'Adds AI-powered reply generation, ticket summarization, and draft rewriting to the osTicket agent panel.',
     'author' =>       'Mateusz Hajder',
