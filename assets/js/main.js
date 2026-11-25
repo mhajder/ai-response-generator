@@ -49,9 +49,18 @@
     return action === 'summarize' ? '#internal_note' : '#response';
   }
 
+  function stripHtmlTags(text) {
+    let out = String(text || '');
+    let prev;
+    do {
+      prev = out;
+      out = out.replace(/<[^>]*>/g, '');
+    } while (out !== prev);
+    return out.replace(/<|>/g, '');
+  }
+
   function isBlankHtmlDraft(text) {
-    const plain = String(text || '')
-      .replace(/<[^>]*>/g, '')
+    const plain = stripHtmlTags(text)
       .replace(/&nbsp;/gi, ' ')
       .trim();
     return plain === '';
@@ -108,7 +117,7 @@
       return doc.body ? doc.body.innerHTML : '';
     }
 
-    return plainTextToHtml(raw.replace(/<[^>]*>/g, ''));
+    return plainTextToHtml(stripHtmlTags(raw));
   }
 
   function parseSseFrames(buffer) {

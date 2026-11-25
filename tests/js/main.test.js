@@ -47,6 +47,10 @@ test('sanitizePreviewHtml strips tags in fallback mode', () => {
   const safe = h.sanitizePreviewHtml('<p>Hello</p><script>alert(1)</script>');
   assert.equal(safe.includes('<script>'), false);
   assert.equal(safe.includes('Hello'), true);
+
+  const nested = h.sanitizePreviewHtml('<scr<script>ipt>alert(1)</script><script');
+  assert.equal(nested.includes('<script'), false);
+  assert.equal(nested, '<p>iptalert(1)script</p>');
 });
 
 test('parseSseFrames extracts complete frames and keeps remainder', () => {
