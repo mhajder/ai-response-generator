@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_DATABASE: osticket
+      MARIADB_USER: osticket
+      MARIADB_PASSWORD: osticket_dev_password
+      MARIADB_ROOT_PASSWORD: osticket_root_password
+    volumes:
+      - osticket_db:/var/lib/mysql
+
+  osticket:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+    volumes:
+      - osticket_html:/var/www/html
+      - .:/var/www/html/include/plugins/ai-response-generator:ro
+
+volumes:
+  osticket_db:
+  osticket_html:
