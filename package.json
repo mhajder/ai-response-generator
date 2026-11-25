@@ -1,6 +1,6 @@
 {
   "name": "ai-response-generator",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "private": true,
   "description": "AI Response Generator plugin for osTicket",
   "type": "module",
